@@ -1,6 +1,6 @@
 {
   "name": "KMFood - Mercado Agro & Alimentos",
-  "description": "Plataforma e-commerce e gestão de alimentos, hortifrúti, grãos, higiene e limpeza com experiência mobile-first, estoque FEFO em tempo real e dashboards por perfil.",
+  "description": "Plataforma KMFood - Mercado Agro & Alimentos e-commerce e gestão de alimentos, hortifrúti, grãos, higiene e limpeza com experiência mobile-first, estoque FEFO em tempo real e dashboards por perfil.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
