@@ -106,6 +106,9 @@ export const ProductDetailModal: React.FC = () => {
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop&q=80';
+                  }}
                   className="w-full h-full object-cover object-center"
                 />
                 {selectedProduct.isOrganic && (

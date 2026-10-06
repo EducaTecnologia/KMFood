@@ -1,29 +1,99 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, ShieldCheck, Truck, Clock, Leaf } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export const HeroCarousel: React.FC = () => {
   const { banners, setActiveView, setSelectedCategorySlug, t } = useApp();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Touch & Swipe gesture handling
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const touchEndY = useRef<number | null>(null);
+
+  const minSwipeDistance = 45; // Minimum px distance to trigger slide change
 
   useEffect(() => {
+    if (isPaused || banners.length <= 1) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % banners.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, [banners.length]);
+  }, [banners.length, isPaused]);
 
   const activeBanner = banners[currentSlide] || banners[0];
 
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % banners.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length);
+  };
+
+  // Touch Start
+  const onTouchStart = (e: React.TouchEvent) => {
+    setIsPaused(true);
+    touchStartX.current = e.targetTouches[0].clientX;
+    touchStartY.current = e.targetTouches[0].clientY;
+    touchEndX.current = null;
+    touchEndY.current = null;
+  };
+
+  // Touch Move
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+    touchEndY.current = e.targetTouches[0].clientY;
+  };
+
+  // Touch End
+  const onTouchEnd = () => {
+    setIsPaused(false);
+    if (!touchStartX.current || !touchEndX.current) return;
+
+    const deltaX = touchStartX.current - touchEndX.current;
+    const deltaY = (touchStartY.current || 0) - (touchEndY.current || 0);
+
+    // Only swipe if horizontal motion exceeds vertical motion (prevent intercepting vertical scrolling)
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+      if (deltaX > 0) {
+        // Swiped Left -> Next Slide
+        handleNext();
+      } else {
+        // Swiped Right -> Previous Slide
+        handlePrev();
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+    touchEndX.current = null;
+    touchEndY.current = null;
+  };
+
   return (
-    <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-emerald-950 text-white shadow-xl my-3 sm:my-5">
-      {/* Background Image with Dark Gradient Scrim - Fixed Height per device mode: Mobile (210px), Tablet (300px), Desktop (380px) */}
-      <div className="relative h-[210px] sm:h-[300px] md:h-[380px] flex items-center">
+    <div
+      className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-emerald-950 text-white shadow-xl my-3 sm:my-5 select-none touch-pan-y"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Background Image with Dark Gradient Scrim - Fixed Height per device mode */}
+      <div className="relative h-[220px] sm:h-[300px] md:h-[380px] flex items-center overflow-hidden">
         <img
+          key={activeBanner.id || currentSlide}
           src={activeBanner.image}
           alt={activeBanner.title}
           referrerPolicy="no-referrer"
-          className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 brightness-[0.75]"
+          onError={(e) => {
+            // Absolute reliable fallback to high quality organic farmers market
+            e.currentTarget.src = 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&auto=format&fit=crop&q=80';
+          }}
+          className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 brightness-[0.75] animate-in fade-in"
         />
         
         {/* Measured Scrim Gradient for WCAG Contrast */}
@@ -95,9 +165,9 @@ export const HeroCarousel: React.FC = () => {
           </div>
         </div>
 
-        {/* Carousel Navigation Arrows */}
+        {/* Desktop Carousel Navigation Arrows */}
         <button
-          onClick={() => setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length)}
+          onClick={handlePrev}
           className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/30 hover:bg-black/50 text-white/80 hover:text-white backdrop-blur-sm transition-colors z-20 hidden sm:flex cursor-pointer"
           aria-label="Slide anterior"
         >
@@ -105,14 +175,14 @@ export const HeroCarousel: React.FC = () => {
         </button>
 
         <button
-          onClick={() => setCurrentSlide((prev) => (prev + 1) % banners.length)}
+          onClick={handleNext}
           className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/30 hover:bg-black/50 text-white/80 hover:text-white backdrop-blur-sm transition-colors z-20 hidden sm:flex cursor-pointer"
           aria-label="Próximo slide"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
 
-        {/* Dots Indicators */}
+        {/* Dots Indicators (Touch Clickable) */}
         <div className="absolute bottom-4 right-6 sm:right-10 z-20 flex items-center gap-1.5">
           {banners.map((_, idx) => (
             <button

@@ -45,6 +45,9 @@ export const CategoryBar: React.FC = () => {
                   src={cat.image}
                   alt={cat.name}
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?w=600&auto=format&fit=crop&q=80';
+                  }}
                   className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300"
                 />
               </div>

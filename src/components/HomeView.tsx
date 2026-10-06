@@ -225,9 +225,13 @@ export const HomeView: React.FC = () => {
             className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-emerald-950 text-white cursor-pointer shadow-md"
           >
             <img
-              src="/src/assets/images/category_hortifruti_1791242932222.jpg"
+              src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?w=800&auto=format&fit=crop&q=80"
               alt="Hortifrúti Fresco"
-              className="w-full h-full object-cover brightness-[0.7] group-hover:scale-105 transition-transform duration-300"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                e.currentTarget.src = 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&auto=format&fit=crop&q=80';
+              }}
+              className="w-full h-full object-cover brightness-[0.75] group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4">
@@ -245,9 +249,13 @@ export const HomeView: React.FC = () => {
             className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-emerald-950 text-white cursor-pointer shadow-md"
           >
             <img
-              src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=600&auto=format&fit=crop&q=80"
+              src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=800&auto=format&fit=crop&q=80"
               alt="Carnes & Açougue"
-              className="w-full h-full object-cover brightness-[0.7] group-hover:scale-105 transition-transform duration-300"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                e.currentTarget.src = 'https://images.unsplash.com/photo-1558030006-450675393462?w=800&auto=format&fit=crop&q=80';
+              }}
+              className="w-full h-full object-cover brightness-[0.75] group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4">
@@ -265,9 +273,13 @@ export const HomeView: React.FC = () => {
             className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-emerald-950 text-white cursor-pointer shadow-md"
           >
             <img
-              src="/src/assets/images/category_graos_cafe_1791242945234.jpg"
+              src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&auto=format&fit=crop&q=80"
               alt="Grãos & Cereais"
-              className="w-full h-full object-cover brightness-[0.7] group-hover:scale-105 transition-transform duration-300"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                e.currentTarget.src = 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&auto=format&fit=crop&q=80';
+              }}
+              className="w-full h-full object-cover brightness-[0.75] group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4">
@@ -285,9 +297,13 @@ export const HomeView: React.FC = () => {
             className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-emerald-950 text-white cursor-pointer shadow-md"
           >
             <img
-              src="https://images.unsplash.com/photo-1585421514738-01798e348b17?w=600&auto=format&fit=crop&q=80"
+              src="https://images.unsplash.com/photo-1585421514738-01798e348b17?w=800&auto=format&fit=crop&q=80"
               alt="Limpeza Ecológica"
-              className="w-full h-full object-cover brightness-[0.7] group-hover:scale-105 transition-transform duration-300"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                e.currentTarget.src = 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=800&auto=format&fit=crop&q=80';
+              }}
+              className="w-full h-full object-cover brightness-[0.75] group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4">

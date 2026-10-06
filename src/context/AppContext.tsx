@@ -199,7 +199,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [categories] = useState<Category[]>(CATEGORIES);
   const [cart, setCart] = useState<CartItem[]>(() => getStored('cart', []));
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
-  const [orders, setOrders] = useState<Order[]>(() => getStored('orders', INITIAL_ORDERS));
+  const [orders, setOrders] = useState<Order[]>(() => {
+    const stored = getStored<Order[]>('orders', INITIAL_ORDERS);
+    return stored.map((o) => ({
+      ...o,
+      items: o.items.map((item) => {
+        const prod = INITIAL_PRODUCTS.find((p) => p.id === item.productId);
+        if ((!item.productImage || item.productImage.startsWith('/src/assets')) && prod) {
+          return { ...item, productImage: prod.image };
+        }
+        return item;
+      })
+    }));
+  });
   const [activeOrder, setActiveOrder] = useState<Order | null>(INITIAL_ORDERS[0]);
   const [activeView, setActiveView] = useState<string>('ecommerce');
   const [selectedCategorySlug, setSelectedCategorySlug] = useState<string | null>(null);
@@ -208,7 +220,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [currentAddress, setCurrentAddress] = useState<Address>(INITIAL_USERS[0].address!);
   const [deliveryZones, setDeliveryZones] = useState<DeliveryZone[]>(() => getStored('zones', DELIVERY_ZONES));
-  const [banners, setBanners] = useState<Banner[]>(() => getStored('banners', INITIAL_BANNERS));
+  const [banners, setBanners] = useState<Banner[]>(() => {
+    const stored = getStored<Banner[]>('banners', INITIAL_BANNERS);
+    return stored.map((b) => {
+      const init = INITIAL_BANNERS.find((ib) => ib.id === b.id);
+      return init ? { ...b, image: init.image } : b;
+    });
+  });
   const [financialTransactions, setFinancialTransactions] = useState<FinancialTransaction[]>(() => getStored('transactions', INITIAL_TRANSACTIONS));
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>(() => getStored('chat', INITIAL_CHAT));
   const [notifications, setNotifications] = useState<PushNotification[]>(() => getStored('notifications', INITIAL_NOTIFICATIONS));
