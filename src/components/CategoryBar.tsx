@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import { Category } from '../types';
 
 export const CategoryBar: React.FC = () => {
-  const { categories, selectedCategorySlug, setSelectedCategorySlug, setActiveView } = useApp();
+  const { categories, selectedCategorySlug, setSelectedCategorySlug, setActiveView, t } = useApp();
 
   const handleSelectCategory = (category: Category) => {
     setSelectedCategorySlug(category.slug);
@@ -11,15 +11,36 @@ export const CategoryBar: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const getCategoryName = (cat: Category) => {
+    switch (cat.slug) {
+      case 'hortifruti':
+        return t.freshProduce;
+      case 'carnes-acougue':
+        return t.meatButcher;
+      case 'graos-cereais':
+        return t.grainsCereals;
+      case 'cafe-cacau':
+        return t.coffeeCocoa;
+      case 'frios-laticinios':
+        return t.cheeseDairy;
+      case 'limpeza':
+        return t.ecoCleaning;
+      case 'higiene':
+        return t.naturalHygiene;
+      default:
+        return cat.name;
+    }
+  };
+
   return (
     <div className="my-6">
       <div className="flex items-center justify-between mb-3 px-1">
         <div>
           <h2 className="font-display font-bold text-lg sm:text-xl text-stone-900 tracking-tight">
-            Departamentos do Campo & Mercado
+            {t.fieldDepartmentsTitle}
           </h2>
           <p className="text-xs text-stone-500">
-            Navegue pelas safras de produtores agroecológicos e itens essenciais
+            {t.fieldDepartmentsSub}
           </p>
         </div>
       </div>
@@ -28,6 +49,7 @@ export const CategoryBar: React.FC = () => {
       <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-2.5 sm:gap-3">
         {categories.map((cat) => {
           const isSelected = selectedCategorySlug === cat.slug;
+          const displayName = getCategoryName(cat);
 
           return (
             <button
@@ -43,7 +65,7 @@ export const CategoryBar: React.FC = () => {
               <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden bg-stone-100 mb-2 relative shrink-0">
                 <img
                   src={cat.image}
-                  alt={cat.name}
+                  alt={displayName}
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     e.currentTarget.src = 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?w=600&auto=format&fit=crop&q=80';
@@ -54,10 +76,10 @@ export const CategoryBar: React.FC = () => {
 
               {/* Category Name */}
               <span className="text-[11px] sm:text-xs font-semibold text-stone-800 group-hover:text-emerald-900 line-clamp-1">
-                {cat.name}
+                {displayName}
               </span>
               <span className="text-[10px] text-stone-400 mt-0.5">
-                {cat.itemCount} itens
+                {cat.itemCount} {t.itemsCount}
               </span>
             </button>
           );

@@ -23,6 +23,37 @@ export interface TranslationDictionary {
   searchShortcutsTitle: string;
   terms: string[];
   
+  // Home Shelves & Callouts
+  harvestNews: string;
+  recentHarvestBadge: string;
+  recentHarvestSub: string;
+  viewAll: string;
+  highlightsTitle: string;
+  highlightsSub: string;
+  offersWeekTitle: string;
+  offersWeekSub: string;
+  upToDiscount: string;
+  viewAllOffers: string;
+  expressDelivery: string;
+  expressDeliverySub: string;
+  directFromProducer: string;
+  directFromProducerSub: string;
+  fefoQuality: string;
+  fefoQualitySub: string;
+  securePayment: string;
+  securePaymentSub: string;
+  fieldDepartmentsTitle: string;
+  fieldDepartmentsSub: string;
+  bigDepartmentsTitle: string;
+  aiChefTitle: string;
+  aiChefSub: string;
+  openAiChef: string;
+  newsletterTitle: string;
+  newsletterSub: string;
+  newsletterPlaceholder: string;
+  subscribe: string;
+  itemsCount: string;
+  
   // Cart & Checkout
   shoppingCart: string;
   continueShopping: string;
@@ -79,6 +110,17 @@ export interface TranslationDictionary {
   sendReview: string;
   verifiedPurchase: string;
   
+  // User Profile
+  myAccount: string;
+  walletBalance: string;
+  cashbackAvailable: string;
+  pointsFidelity: string;
+  couponsAvailable: string;
+  activeOrderTrack: string;
+  trackRoute: string;
+  backToStore: string;
+  saveChanges: string;
+
   // Dashboards & Roles
   roleCustomer: string;
   roleAdmin: string;
@@ -137,6 +179,37 @@ export const translations: Record<Language, TranslationDictionary> = {
     deliveryTo: 'Onde você quer receber?',
     searchShortcutsTitle: 'Termos mais buscados hoje',
     terms: ['Tomate Orgânico', 'Picanha Angus', 'Café Especial', 'Feijão Safra', 'Queijo Canastra', 'Detergente Bio'],
+
+    // Home Shelves & Callouts
+    harvestNews: 'Novidades da Safra',
+    recentHarvestBadge: 'Colheita Recente',
+    recentHarvestSub: 'Produtos frescos recém-chegados das cooperativas rurais com certificação',
+    viewAll: 'Ver tudo',
+    highlightsTitle: 'Destaques KMFood & Favoritos dos Clientes',
+    highlightsSub: 'Os itens mais bem avaliados com procedência garantida e notas 4.9+',
+    offersWeekTitle: 'Ofertas da Semana do Campo',
+    offersWeekSub: 'Preços especiais direto do produtor sem intermediários',
+    upToDiscount: 'Até -25% OFF',
+    viewAllOffers: 'Ver todas as ofertas',
+    expressDelivery: 'Entrega Expressa',
+    expressDeliverySub: 'Seu pedido entregue no endereço em 35 a 45 minutos.',
+    directFromProducer: 'Direto do Pequeno Produtor',
+    directFromProducerSub: 'Comércio justo que apoia a agricultura familiar sustentável.',
+    fefoQuality: 'Controle FEFO & Frescor',
+    fefoQualitySub: 'Rastreamento de lote e garantia incondicional de qualidade.',
+    securePayment: 'Pagamento Seguro',
+    securePaymentSub: 'Pix instantâneo, cartão em até 3x sem juros ou dinheiro.',
+    fieldDepartmentsTitle: 'Departamentos do Campo & Mercado',
+    fieldDepartmentsSub: 'Navegue pelas safras de produtores agroecológicos e itens essenciais',
+    bigDepartmentsTitle: 'Grandes Departamentos da Safra',
+    aiChefTitle: 'Chef KMFood Inteligente & Sugestão de Receitas',
+    aiChefSub: 'Peça ideias de pratos saudáveis e adicione todos os ingredientes frescos à sua cesta com 1 clique.',
+    openAiChef: 'Abrir Chef KMFood',
+    newsletterTitle: 'Receba o boletim semanal da colheita e ofertas exclusivas',
+    newsletterSub: 'Saiba primeiro quando chegarem safras raras de cafés especiais, queijos premiados e hortaliças orgânicas.',
+    newsletterPlaceholder: 'Digite seu e-mail...',
+    subscribe: 'Inscrever',
+    itemsCount: 'itens',
     
     // Cart & Checkout
     shoppingCart: 'Cesta de Compras',
@@ -194,6 +267,17 @@ export const translations: Record<Language, TranslationDictionary> = {
     sendReview: 'Enviar Avaliação',
     verifiedPurchase: 'Compra Verificada',
     
+    // User Profile
+    myAccount: 'Minha Conta KMFood',
+    walletBalance: 'Saldo em Carteira',
+    cashbackAvailable: 'Cashback Acumulado',
+    pointsFidelity: 'Pontos Fidelidade',
+    couponsAvailable: 'Cupons Ativos',
+    activeOrderTrack: 'Pedido em Andamento',
+    trackRoute: 'Acompanhar Rota',
+    backToStore: 'Voltar para a Loja',
+    saveChanges: 'Salvar Alterações',
+
     // Dashboards & Roles
     roleCustomer: 'Cliente (E-commerce)',
     roleAdmin: 'Administrador Geral',
@@ -251,6 +335,37 @@ export const translations: Record<Language, TranslationDictionary> = {
     searchShortcutsTitle: 'Top searches today',
     terms: ['Organic Tomato', 'Angus Steak', 'Specialty Coffee', 'Farm Beans', 'Canastra Cheese', 'Bio Detergent'],
     
+    // Home Shelves & Callouts
+    harvestNews: 'Harvest Arrivals',
+    recentHarvestBadge: 'Fresh Harvest',
+    recentHarvestSub: 'Fresh produce freshly arrived from certified rural cooperatives',
+    viewAll: 'View all',
+    highlightsTitle: 'KMFood Highlights & Customer Favorites',
+    highlightsSub: 'Top-rated items with certified origin and 4.9+ ratings',
+    offersWeekTitle: 'Farm Weekly Deals',
+    offersWeekSub: 'Special prices directly from growers with no middlemen',
+    upToDiscount: 'Up to 25% OFF',
+    viewAllOffers: 'View all offers',
+    expressDelivery: 'Express Delivery',
+    expressDeliverySub: 'Your order delivered to your address in 35 to 45 minutes.',
+    directFromProducer: 'Directly from Small Growers',
+    directFromProducerSub: 'Fair trade supporting sustainable family farming.',
+    fefoQuality: 'FEFO Quality & Freshness',
+    fefoQualitySub: 'Batch traceability and unconditional freshness guarantee.',
+    securePayment: 'Secure Payment',
+    securePaymentSub: 'Instant Pix, credit card in up to 3 installments or cash.',
+    fieldDepartmentsTitle: 'Farm & Market Departments',
+    fieldDepartmentsSub: 'Browse harvests from agroecological growers and grocery essentials',
+    bigDepartmentsTitle: 'Major Harvest Departments',
+    aiChefTitle: 'Smart KMFood Chef & Recipe Ideas',
+    aiChefSub: 'Ask for healthy meal ideas and add all fresh ingredients to your basket in 1 click.',
+    openAiChef: 'Open KMFood Chef',
+    newsletterTitle: 'Receive the weekly harvest newsletter and exclusive deals',
+    newsletterSub: 'Be the first to know about rare specialty coffees, artisan cheeses, and organic greens.',
+    newsletterPlaceholder: 'Enter your email...',
+    subscribe: 'Subscribe',
+    itemsCount: 'items',
+
     // Cart & Checkout
     shoppingCart: 'Shopping Cart',
     continueShopping: 'Continue Shopping',
@@ -307,6 +422,17 @@ export const translations: Record<Language, TranslationDictionary> = {
     sendReview: 'Submit Review',
     verifiedPurchase: 'Verified Purchase',
     
+    // User Profile
+    myAccount: 'My KMFood Account',
+    walletBalance: 'Wallet Balance',
+    cashbackAvailable: 'Cashback Earned',
+    pointsFidelity: 'Loyalty Points',
+    couponsAvailable: 'Active Coupons',
+    activeOrderTrack: 'Order in Progress',
+    trackRoute: 'Track Route',
+    backToStore: 'Back to Store',
+    saveChanges: 'Save Changes',
+
     // Dashboards & Roles
     roleCustomer: 'Customer (Storefront)',
     roleAdmin: 'General Administrator',
@@ -364,6 +490,37 @@ export const translations: Record<Language, TranslationDictionary> = {
     searchShortcutsTitle: 'Recherches populaires aujourd’hui',
     terms: ['Tomate Bio', 'Picanha Angus', 'Café de Spécialité', 'Haricots de Ferme', 'Fromage Artisanal', 'Lessive Éco'],
     
+    // Home Shelves & Callouts
+    harvestNews: 'Nouveautés de la Récolte',
+    recentHarvestBadge: 'Récolte Récente',
+    recentHarvestSub: 'Produits frais fraîchement arrivés des coopératives rurales certifiées',
+    viewAll: 'Voir tout',
+    highlightsTitle: 'Sélection KMFood & Favoris des Clients',
+    highlightsSub: 'Les articles les mieux notés avec origine garantie et notes 4.9+',
+    offersWeekTitle: 'Offres de la Semaine du Terroir',
+    offersWeekSub: 'Prix spéciaux directement des producteurs sans intermédiaires',
+    upToDiscount: 'Jusqu’à -25% de Réduction',
+    viewAllOffers: 'Voir toutes les offres',
+    expressDelivery: 'Livraison Express',
+    expressDeliverySub: 'Votre commande livrée à votre adresse en 35 à 45 minutes.',
+    directFromProducer: 'Directement du Petit Producteur',
+    directFromProducerSub: 'Commerce équitable soutenant l’agriculture familiale durable.',
+    fefoQuality: 'Qualité FEFO & Fraîcheur',
+    fefoQualitySub: 'Traçabilité des lots et garantie inconditionnelle de fraîcheur.',
+    securePayment: 'Paiement Sécurisé',
+    securePaymentSub: 'Paiement instantané Pix, carte bancaire ou espèces.',
+    fieldDepartmentsTitle: 'Rayons du Terroir & Marché',
+    fieldDepartmentsSub: 'Parcourez les récoltes des producteurs agroécologiques et les produits essentiels',
+    bigDepartmentsTitle: 'Grands Rayons de la Récolte',
+    aiChefTitle: 'Chef KMFood Intelligent & Idées Recettes',
+    aiChefSub: 'Demandez des idées de plats sains et ajoutez tous les ingrédients frais à votre panier en 1 clic.',
+    openAiChef: 'Ouvrir Chef KMFood',
+    newsletterTitle: 'Recevez la newsletter hebdomadaire de la récolte et des offres exclusives',
+    newsletterSub: 'Soyez le premier informé des cafés de spécialité rares, fromages primés et légumes bio.',
+    newsletterPlaceholder: 'Entrez votre e-mail...',
+    subscribe: 'S’inscrire',
+    itemsCount: 'articles',
+
     // Cart & Checkout
     shoppingCart: 'Panier d’Achat',
     continueShopping: 'Continuer les Achats',
@@ -420,6 +577,17 @@ export const translations: Record<Language, TranslationDictionary> = {
     sendReview: 'Publier l’Avis',
     verifiedPurchase: 'Achat Vérifié',
     
+    // User Profile
+    myAccount: 'Mon Compte KMFood',
+    walletBalance: 'Solde du Portefeuille',
+    cashbackAvailable: 'Cashback Cumulé',
+    pointsFidelity: 'Points de Fidélité',
+    couponsAvailable: 'Bons de Réduction Actifs',
+    activeOrderTrack: 'Commande en Cours',
+    trackRoute: 'Suivre la Livraison',
+    backToStore: 'Retour à la Boutique',
+    saveChanges: 'Enregistrer les Modifications',
+
     // Dashboards & Roles
     roleCustomer: 'Client (Boutique)',
     roleAdmin: 'Administrateur Général',
