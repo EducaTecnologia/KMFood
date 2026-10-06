@@ -3,7 +3,7 @@ import { Home, Compass, ShoppingBag, Clock, User } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export const BottomNav: React.FC = () => {
-  const { activeView, setActiveView, cartCount, setSelectedCategorySlug, t } = useApp();
+  const { activeView, setActiveView, cartCount, setSelectedCategorySlug, currentUser, t } = useApp();
 
   const navItems = [
     {
@@ -41,11 +41,15 @@ export const BottomNav: React.FC = () => {
       },
     },
     {
-      id: 'login',
+      id: 'account',
       label: t.account,
       icon: User,
       action: () => {
-        setActiveView('login');
+        if (currentUser.role === 'customer') {
+          setActiveView('profile');
+        } else {
+          setActiveView('login');
+        }
       },
     },
   ];
@@ -57,6 +61,7 @@ export const BottomNav: React.FC = () => {
           const Icon = item.icon;
           const isActive =
             activeView === item.id ||
+            (item.id === 'account' && (activeView === 'profile' || activeView === 'login')) ||
             (item.id === 'ecommerce' && activeView === 'ecommerce');
 
           return (

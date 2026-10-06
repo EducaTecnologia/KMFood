@@ -281,15 +281,35 @@ export const Header: React.FC<{ onOpenMobileMenu?: () => void }> = () => {
                 </span>
               </button>
 
-              {/* User Avatar / Login */}
+              {/* User Avatar / Profile / Login */}
               <button
-                onClick={() => setActiveView('login')}
-                className="hidden sm:flex items-center gap-1.5 p-1.5 text-stone-700 hover:text-emerald-900 hover:bg-stone-100 rounded-full transition-colors cursor-pointer"
-                title={`${t.account} / ${t.login}`}
+                onClick={() => {
+                  if (currentUser.role === 'customer') {
+                    setActiveView('profile');
+                  } else {
+                    setActiveView('login');
+                  }
+                }}
+                className="hidden sm:flex items-center gap-1.5 p-1 text-stone-700 hover:text-emerald-900 hover:bg-stone-100 rounded-full transition-colors cursor-pointer"
+                title={`${currentUser.name} (${t.account})`}
               >
-                <div className="w-7 h-7 rounded-full bg-stone-200 text-stone-700 flex items-center justify-center text-xs font-bold">
-                  {currentUser.name.charAt(0)}
-                </div>
+                {currentUser.avatar ? (
+                  <img
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
+                    className="w-7 h-7 rounded-full object-cover border border-emerald-600 shadow-xs"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <div className="w-7 h-7 rounded-full bg-emerald-700 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                    {currentUser.name.charAt(0)}
+                  </div>
+                )}
+                <span className="hidden md:inline text-xs font-bold text-stone-800 truncate max-w-[100px]">
+                  {currentUser.name.split(' ')[0]}
+                </span>
               </button>
             </div>
 

@@ -8,7 +8,9 @@ import {
   Leaf,
   Clock,
   Sparkles,
-  ChevronLeft
+  ChevronLeft,
+  User as UserIcon,
+  Crown
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { UserRole } from '../types';
@@ -18,12 +20,11 @@ export const LoginView: React.FC = () => {
 
   const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
 
-  // Form fields
-  const [emailOrPhone, setEmailOrPhone] = useState('cliente@kmfood.com.br');
+  // Form fields (Defaulting to Plácide for instant testing and presentation)
+  const [emailOrPhone, setEmailOrPhone] = useState('placide@kmfood.com.br');
   const [password, setPassword] = useState('senhaSegura123');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -63,16 +64,19 @@ export const LoginView: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center p-4 sm:p-6 lg:p-10">
-      <div className="max-w-4xl w-full bg-white rounded-3xl shadow-2xl border border-stone-200/90 overflow-hidden grid grid-cols-1 md:grid-cols-2">
+    <div className="min-h-[85vh] flex items-center justify-center p-3 sm:p-6 lg:p-10">
+      <div className="max-w-4xl w-full bg-white rounded-3xl shadow-2xl border border-stone-200/90 overflow-hidden lg:grid lg:grid-cols-2 flex flex-col">
         
-        {/* LEFT: BRAND PANEL (DESKTOP / TABLET SPLIT SCREEN) */}
-        <div className="relative bg-emerald-950 text-white p-8 sm:p-10 flex flex-col justify-between overflow-hidden min-h-[380px] md:min-h-[580px]">
+        {/* LEFT: BRAND PANEL (SHOWN ONLY ON DESKTOP - HIDDEN ON MOBILE & TABLET PER USER SPECIFICATION) */}
+        <div className="hidden lg:flex relative bg-emerald-950 text-white p-8 sm:p-10 flex-col justify-between overflow-hidden min-h-[580px]">
           {/* Background Photography with Scrim */}
           <img
-            src="/src/assets/images/login_agro_harvest_1791242955030.jpg"
+            src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1000&auto=format&fit=crop&q=80"
             alt="Colheita sustentável KMFood"
             referrerPolicy="no-referrer"
+            onError={(e) => {
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1000&auto=format&fit=crop&q=80';
+            }}
             className="absolute inset-0 w-full h-full object-cover object-center brightness-[0.55]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/70 to-transparent" />
@@ -81,7 +85,7 @@ export const LoginView: React.FC = () => {
           <div className="relative z-10">
             <button
               onClick={() => setActiveView('ecommerce')}
-              className="inline-flex items-center gap-1.5 text-xs text-emerald-300 hover:text-emerald-100 transition-colors mb-6"
+              className="inline-flex items-center gap-1.5 text-xs text-emerald-300 hover:text-emerald-100 transition-colors mb-6 cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Voltar para a Loja</span>
@@ -131,24 +135,40 @@ export const LoginView: React.FC = () => {
           </div>
         </div>
 
-        {/* RIGHT: ACCESS CARD (LOGIN / REGISTRATION) */}
-        <div className="p-8 sm:p-10 flex flex-col justify-between">
+        {/* RIGHT: ACCESS CARD (LOGIN / REGISTRATION) - LOADS FULL WIDTH ON MOBILE & TABLET */}
+        <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between w-full">
           <div>
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="font-display font-extrabold text-xl sm:text-2xl text-stone-900">
-                  {isRegisterMode ? 'Criar Nova Conta' : 'Entrar no KMFood'}
-                </h3>
-                <p className="text-xs text-stone-500 mt-1">
-                  {isRegisterMode
-                    ? 'Preencha seus dados para começar a receber alimentos frescos'
-                    : 'Acesse suas compras, acompanhe entregas e gerencie pedidos'}
-                </p>
+            {/* Mobile/Tablet Compact Brand Header */}
+            <div className="lg:hidden flex items-center justify-between pb-4 mb-4 border-b border-stone-100">
+              <button
+                onClick={() => setActiveView('ecommerce')}
+                className="inline-flex items-center gap-1 text-xs text-stone-500 hover:text-emerald-800 font-semibold cursor-pointer"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span>Loja</span>
+              </button>
+              <div className="flex items-baseline gap-0.5">
+                <span className="font-display font-extrabold text-lg text-emerald-950">
+                  KM<span className="text-emerald-600">Food</span>
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 ml-0.5" />
               </div>
             </div>
 
+            {/* Title */}
+            <div className="mb-5">
+              <h3 className="font-display font-extrabold text-xl sm:text-2xl text-stone-900">
+                {isRegisterMode ? 'Criar Nova Conta' : 'Entrar no KMFood'}
+              </h3>
+              <p className="text-xs text-stone-500 mt-1">
+                {isRegisterMode
+                  ? 'Preencha seus dados para começar a receber alimentos frescos'
+                  : 'Acesse suas compras, carteira e acompanhe entregas em tempo real'}
+              </p>
+            </div>
+
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3.5">
               {isRegisterMode && (
                 <div>
                   <label className="block text-xs font-semibold text-stone-700 mb-1">
@@ -157,7 +177,7 @@ export const LoginView: React.FC = () => {
                   <input
                     type="text"
                     required
-                    placeholder="Ex: Carolina Mendes"
+                    placeholder="Ex: Plácide Silva"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
@@ -167,19 +187,19 @@ export const LoginView: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-semibold text-stone-700 mb-1">
-                  E-mail ou Telefone com DDD
+                  E-mail ou Telefone
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="seuemail@exemplo.com ou (11) 98765-4321"
+                  placeholder="placide@kmfood.com.br ou (11) 98123-4567"
                   value={emailOrPhone}
                   onChange={(e) => setEmailOrPhone(e.target.value)}
                   className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                 />
               </div>
 
-              {/* Password with Eye Toggle (Mandatory Requirement) */}
+              {/* Password with Eye Toggle */}
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <label className="text-xs font-semibold text-stone-700">Senha</label>
@@ -187,7 +207,7 @@ export const LoginView: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setForgotPasswordOpen(true)}
-                      className="text-[11px] text-emerald-700 hover:underline"
+                      className="text-[11px] text-emerald-700 hover:underline cursor-pointer"
                     >
                       Esqueceu a senha?
                     </button>
@@ -205,7 +225,7 @@ export const LoginView: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 p-1"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 p-1 cursor-pointer"
                     aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -213,9 +233,9 @@ export const LoginView: React.FC = () => {
                 </div>
               </div>
 
-              {/* Remember Me Checkbox */}
+              {/* Remember Me */}
               {!isRegisterMode && (
-                <div className="flex items-center justify-between text-xs text-stone-600 pt-1">
+                <div className="flex items-center justify-between text-xs text-stone-600 pt-0.5">
                   <label className="flex items-center gap-2 cursor-pointer select-none">
                     <input
                       type="checkbox"
@@ -228,9 +248,9 @@ export const LoginView: React.FC = () => {
                 </div>
               )}
 
-              {/* Terms of Service Checkbox (for Registration) */}
+              {/* Terms of Service Checkbox */}
               {isRegisterMode && (
-                <div className="pt-1">
+                <div className="pt-0.5">
                   <label className="flex items-start gap-2 cursor-pointer text-xs text-stone-600 select-none">
                     <input
                       type="checkbox"
@@ -239,7 +259,7 @@ export const LoginView: React.FC = () => {
                       className="w-4 h-4 mt-0.5 rounded text-emerald-700 accent-emerald-700"
                     />
                     <span className="text-[11px] leading-tight">
-                      Li e concordo com os <strong>Termos e Condições de Uso</strong> e com a <strong>Política de Privacidade (LGPD)</strong> do KMFood.
+                      Li e concordo com os <strong>Termos de Uso</strong> e <strong>Política de Privacidade</strong>.
                     </span>
                   </label>
                 </div>
@@ -254,48 +274,26 @@ export const LoginView: React.FC = () => {
               </button>
             </form>
 
-            {/* Social Login Options */}
-            <div className="mt-5 text-center">
-              <div className="relative flex items-center justify-center mb-3">
-                <div className="border-t border-stone-200 w-full" />
-                <span className="bg-white px-3 text-[11px] text-stone-400 uppercase tracking-wider shrink-0">
-                  ou continue com
-                </span>
-                <div className="border-t border-stone-200 w-full" />
+            {/* Fast 1-Click Plácide VIP Login Account Card */}
+            <div className="mt-4 p-3 bg-emerald-50/80 border border-emerald-200 rounded-2xl flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs">
+                  P
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-emerald-950 flex items-center gap-1">
+                    Plácide (Cliente VIP) <Crown className="w-3 h-3 text-amber-500 fill-amber-500" />
+                  </p>
+                  <p className="text-[10px] text-emerald-700">Conta com carteira, cashback e dados carregados</p>
+                </div>
               </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    login('cliente.google@gmail.com', 'customer');
-                    showToast('Autenticado com Google');
-                  }}
-                  className="py-2 px-3 border border-stone-200 hover:bg-stone-50 rounded-xl text-xs font-semibold text-stone-700 flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                  </svg>
-                  <span>Google</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    login('cliente.apple@icloud.com', 'customer');
-                    showToast('Autenticado com Apple ID');
-                  }}
-                  className="py-2 px-3 border border-stone-200 hover:bg-stone-50 rounded-xl text-xs font-semibold text-stone-700 flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.66-.82 1.11-1.96.99-3.1-.96.04-2.12.64-2.8 1.44-.6.69-1.12 1.83-.98 2.94 1.07.08 2.15-.55 2.79-1.28"/>
-                  </svg>
-                  <span>Apple ID</span>
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => login('placide@kmfood.com.br', 'customer')}
+                className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white text-[11px] font-bold rounded-lg shadow-xs transition-all cursor-pointer"
+              >
+                Entrar
+              </button>
             </div>
 
             {/* Toggle Login <-> Register */}
@@ -306,7 +304,7 @@ export const LoginView: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setIsRegisterMode(false)}
-                    className="font-bold text-emerald-700 hover:underline"
+                    className="font-bold text-emerald-700 hover:underline cursor-pointer"
                   >
                     Fazer Login
                   </button>
@@ -317,7 +315,7 @@ export const LoginView: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setIsRegisterMode(true)}
-                    className="font-bold text-emerald-700 hover:underline"
+                    className="font-bold text-emerald-700 hover:underline cursor-pointer"
                   >
                     Cadastre-se grátis
                   </button>
@@ -327,23 +325,20 @@ export const LoginView: React.FC = () => {
           </div>
 
           {/* QUICK ROLE SELECTOR (DEMO 7 ROLES COMPLIANCE) */}
-          <div className="mt-6 pt-4 border-t border-stone-200">
+          <div className="mt-5 pt-4 border-t border-stone-200">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                 Acesso Rápido por Perfil (7 Perfis)
               </span>
             </div>
-            <p className="text-[11px] text-stone-400 mb-2">
-              Clique em qualquer perfil abaixo para acessar e avaliar seu dashboard dedicado:
-            </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
               {demoRoles.map((r) => (
                 <button
                   key={r.role}
                   type="button"
                   onClick={() => switchRole(r.role)}
-                  className="p-1.5 bg-stone-50 hover:bg-emerald-50 border border-stone-200 hover:border-emerald-300 rounded-lg text-left text-[11px] transition-colors"
+                  className="p-1.5 bg-stone-50 hover:bg-emerald-50 border border-stone-200 hover:border-emerald-300 rounded-lg text-left text-[11px] transition-colors cursor-pointer"
                 >
                   <span className="font-semibold text-stone-800 block truncate">{r.title}</span>
                   <span className="text-[9px] text-stone-400 uppercase">{r.role}</span>
@@ -379,13 +374,13 @@ export const LoginView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setForgotPasswordOpen(false)}
-                  className="flex-1 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold rounded-xl"
+                  className="flex-1 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold rounded-xl cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-xl"
+                  className="flex-1 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-xl cursor-pointer"
                 >
                   Enviar Link
                 </button>

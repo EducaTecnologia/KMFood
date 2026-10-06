@@ -36,6 +36,7 @@ import {
 
 interface AppContextType {
   currentUser: User;
+  setCurrentUser: (user: User) => void;
   switchRole: (role: UserRole) => void;
   login: (emailOrPhone: string, role?: UserRole) => void;
   logout: () => void;
@@ -326,13 +327,46 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const login = (emailOrPhone: string, role?: UserRole) => {
-    const targetRole = role || 'customer';
-    switchRole(targetRole);
-    showToast(`Bem-vindo(a) ao KMFood!`, 'success');
+    const clean = emailOrPhone.trim().toLowerCase();
+    let targetUser: User | undefined;
+
+    if (clean.includes('placide') || clean.includes('plácide')) {
+      targetUser = INITIAL_USERS.find(u => u.id === 'user-placide');
+    } else if (clean) {
+      targetUser = INITIAL_USERS.find(u => u.email.toLowerCase() === clean || u.phone.includes(clean));
+    }
+
+    if (!targetUser) {
+      const targetRole = role || 'customer';
+      targetUser = INITIAL_USERS.find(u => u.role === targetRole) || {
+        id: `user-${targetRole}-${Date.now()}`,
+        name: clean ? clean.split('@')[0] : 'Plácide',
+        email: clean || 'placide@kmfood.com.br',
+        phone: '(11) 98123-4567',
+        role: targetRole,
+      };
+    }
+
+    setCurrentUser(targetUser);
+    setStored('user', targetUser);
+    if (targetUser.address) {
+      setCurrentAddress(targetUser.address);
+    }
+
+    if (targetUser.role === 'customer') {
+      setActiveView('profile');
+    } else {
+      switchRole(targetUser.role);
+    }
+
+    showToast(`Bem-vindo(a), ${targetUser.name}!`, 'success');
   };
 
   const logout = () => {
-    switchRole('customer');
+    const defaultUser = INITIAL_USERS[0];
+    setCurrentUser(defaultUser);
+    setStored('user', defaultUser);
+    setActiveView('login');
     showToast('Você saiu da sua conta', 'info');
   };
 
@@ -936,6 +970,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     <AppContext.Provider
       value={{
         currentUser,
+        setCurrentUser,
         switchRole,
         login,
         logout,

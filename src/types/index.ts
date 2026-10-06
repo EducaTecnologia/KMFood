@@ -7,14 +7,41 @@ export type UserRole =
   | 'delivery'
   | 'courier';
 
+export interface UserPaymentMethod {
+  id: string;
+  type: 'credit' | 'debit' | 'pix' | 'wallet';
+  brand?: string;
+  last4?: string;
+  label: string;
+}
+
+export interface UserCoupon {
+  id: string;
+  code: string;
+  discount: number;
+  type: 'percent' | 'fixed';
+  description: string;
+  minOrder: number;
+  validUntil: string;
+}
+
 export interface User {
   id: string;
   name: string;
+  fullName?: string;
   email: string;
   phone: string;
   role: UserRole;
   avatar?: string;
+  cpf?: string;
+  vipStatus?: string;
+  walletBalance?: number;
+  cashback?: number;
+  kmPoints?: number;
   address?: Address;
+  savedAddresses?: Address[];
+  paymentMethods?: UserPaymentMethod[];
+  coupons?: UserCoupon[];
 }
 
 export interface Address {

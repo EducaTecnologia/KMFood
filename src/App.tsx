@@ -14,6 +14,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { OrderTrackingView } from './components/OrderTrackingView';
 import { LoginView } from './components/LoginView';
+import { UserProfileView } from './components/UserProfileView';
 import { InstitutionalView } from './components/InstitutionalView';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { ShoppingListsView } from './components/ShoppingListsView';
@@ -98,6 +99,7 @@ const AppContent: React.FC = () => {
         {activeView === 'order_tracking' && <OrderTrackingView />}
         {activeView === 'shopping_lists' && <ShoppingListsView />}
         {activeView === 'login' && <LoginView />}
+        {activeView === 'profile' && <UserProfileView />}
         {activeView === 'institutional' && <InstitutionalView />}
       </main>
 
